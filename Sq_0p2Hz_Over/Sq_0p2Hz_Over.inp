@@ -1,0 +1,109 @@
+*INCLUDE, INPUT=Complete_Thin_Beam_Fine_Mesh.inp
+
+** NOTE >>>>>>>>>>>>>>>>>>> Freq MUST be set to 0.767454 in dflux.f subroutine for this input!
+** Failing to update the Freq value will overwrite previous results with incorrect loading!
+
+*MATERIAL,NAME=Metal
+*CONDUCTIVITY 
+16.6
+*ELASTIC
+152.18E9,0.3
+*EXPANSION
+1.6900E-5
+*SPECIFIC HEAT
+5.0200E+02
+*DENSITY
+8.026E+03
+
+*BOUNDARY
+Base1,1
+*BOUNDARY
+Base1,2
+*BOUNDARY
+Base1,3
+*BOUNDARY
+Base1,4
+*BOUNDARY
+Base1,5
+*BOUNDARY
+Base1,6
+
+*BOUNDARY
+Base2,1
+*BOUNDARY
+Base2,2
+*BOUNDARY
+Base2,3
+*BOUNDARY
+Base2,4
+*BOUNDARY
+Base2,5
+*BOUNDARY
+Base2,6
+
+*BOUNDARY
+Base3,1
+*BOUNDARY
+Base3,2
+*BOUNDARY
+Base3,3
+*BOUNDARY
+Base3,4
+*BOUNDARY
+Base3,5
+*BOUNDARY
+Base3,6
+
+*BOUNDARY
+Base4,1
+*BOUNDARY
+Base4,2
+*BOUNDARY
+Base4,3
+*BOUNDARY
+Base4,4
+*BOUNDARY
+Base4,5
+*BOUNDARY
+Base4,6
+
+*SHELL SECTION,MATERIAL=Metal,ELSET=Eall
+0.000203
+
+*INITIAL CONDITIONS, TYPE=TEMPERATURE
+Nall,273
+
+*PHYSICAL CONSTANTS, ABSOLUTE ZERO=0, STEFAN BOLTZMANN=5.669E-8
+
+*STEP,INC=1000
+*COUPLED TEMPERATURE-DISPLACEMENT
+0.1,30
+
+*RADIATE
+PosY,RPOS,0,0.13
+
+*RADIATE
+PosZ,RPOS,0,0.13
+
+*RADIATE
+NegY,RPOS,0,0.13
+
+*RADIATE
+NegZ,RPOS,0,0.13
+
+** Test user defined subroutine for flux
+*DFLUX
+PosY,S2NUy
+*DFLUX
+NegY,S2NUy
+
+
+
+*NODE FILE 
+NT, U  
+*EL FILE 
+HFL
+*NODE PRINT,GLOBAL=YES, NSET=TipMarker
+U
+*END STEP
+
