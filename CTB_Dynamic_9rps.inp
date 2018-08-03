@@ -1,0 +1,74 @@
+*INCLUDE, INPUT=Complete_Thin_Beam_Mesh.inp
+
+** NOTE >>>>>>>>>>>>>>>>>>> Freq MUST be set to 5.8936 in dflux.f subroutine for this input!
+** Failing to update the Freq value will overwrite previous results with incorrect loading!
+
+*MATERIAL,NAME=Metal
+*CONDUCTIVITY 
+16.6
+*ELASTIC
+152.18E9,0.3
+*EXPANSION
+1.6900E-5
+*SPECIFIC HEAT
+5.0200E+02
+*DENSITY
+8.026E+03
+
+*BOUNDARY
+Base,1
+*BOUNDARY
+Base,2
+*BOUNDARY
+Base,3
+*BOUNDARY
+Base,4
+*BOUNDARY
+Base,5
+*BOUNDARY
+Base,6
+
+*SHELL SECTION,MATERIAL=Metal,ELSET=Eall
+0.000203
+
+*INITIAL CONDITIONS, TYPE=TEMPERATURE
+Nall,273
+
+*PHYSICAL CONSTANTS, ABSOLUTE ZERO=0, STEFAN BOLTZMANN=5.669E-8
+
+*STEP,INC=1000
+*COUPLED TEMPERATURE-DISPLACEMENT
+0.1,30
+
+*RADIATE
+PosY,RPOS,0,0.13
+
+*RADIATE
+PosZ,RPOS,0,0.13
+
+*RADIATE
+HighNegY,RPOS,0,0.13
+
+*RADIATE
+LowNegY,RPOS,0,0.13
+
+*RADIATE
+NegZ,RPOS,0,0.13
+
+** Test user defined subroutine for flux
+*DFLUX
+PosY,S2NUy
+*DFLUX
+HighNegY,S2NUy
+*DFLUX
+LowNegY,S2NUy
+
+
+*NODE FILE 
+NT, U  
+*EL FILE 
+S, E
+*NODE PRINT,GLOBAL=YES, NSET=TipMarker
+U
+*END STEP
+
